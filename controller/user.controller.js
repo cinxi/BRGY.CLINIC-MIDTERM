@@ -41,7 +41,7 @@ const save_user = (req, res) => {
 
     // Validate password confirmation
     if (ConfirmPassword_data !== user_data.Password) {
-        return res.redirect("register?message=wrongPassword");
+        return res.redirect("register?message=PasswordNotMatch");
     }
 
     // Hash the password before saving to the database
@@ -51,7 +51,7 @@ const save_user = (req, res) => {
     // Insert to database
     models.user.create(user_data)
         .then(result => {
-            res.redirect("register?message=Added_Success");
+            res.redirect("register?message=AddedSuccessfully!");
         })
         .catch(error => {
             console.error("Database insertion error:", error);

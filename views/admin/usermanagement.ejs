@@ -142,9 +142,10 @@
                  
                     <td><%= user.Username %></td>
                     <td>
-                        <button class="btn btn-edit">Edit</button>
-                        <button class="btn btn-danger">Archive</button>
+                        <a href="/admin/editUser/<%= user.Users_ID %>" class="btn btn-edit">Edit</a>
+                        <a href="/admin/deleteUser/<%= user.Users_ID %>" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this user?')">Delete</a>
                     </td>
+                    
                 </tr>
             <% }) %>
         </tbody>

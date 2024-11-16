@@ -94,6 +94,66 @@ const addUser = (req, res) => {
         });
 };
 
+// Edit User
+const editUser = (req, res) => {
+    const userId = req.params.id;
+    models.user.findOne({
+        where: { Users_ID: userId }
+    })
+    .then(user => {
+        if (user) {
+            res.render("admin/editUser", { user });
+        } else {
+            res.redirect("/admin/usermanagement?message=UserNotFound");
+        }
+    })
+    .catch(error => {
+        console.error("Error fetching user for edit:", error);
+        res.redirect("/admin/usermanagement?message=ServerError");
+    });
+};
+
+// Update User Data
+const updateUser = (req, res) => {
+    const userId = req.params.id;
+    const updatedData = {
+        FirstName: req.body.firstName_data,
+        LastName: req.body.lastName_data,
+        Users_Birthdate: req.body.birthdate_data,
+        Users_Gender: req.body.gender_data,
+        ContactNumber: req.body.contactNumber_data,
+        Username: req.body.Username_data,
+        // Optionally, handle password update
+    };
+
+    models.user.update(updatedData, {
+        where: { Users_ID: userId }
+    })
+    .then(() => {
+        res.redirect("/admin/usermanagement?message=UserUpdated");
+    })
+    .catch(error => {
+        console.error("Error updating user:", error);
+        res.redirect("/admin/usermanagement?message=ServerError");
+    });
+};
+
+// Delete User
+const deleteUser = (req, res) => {
+    const userId = req.params.id;
+    models.user.destroy({
+        where: { Users_ID: userId }
+    })
+    .then(() => {
+        res.redirect("/admin/usermanagement?message=UserDeleted");
+    })
+    .catch(error => {
+        console.error("Error deleting user:", error);
+        res.redirect("/admin/usermanagement?message=ServerError");
+    });
+};
+
+
 module.exports = {
     Admindashboard_view,
     usermanagement_view,
@@ -103,5 +163,8 @@ module.exports = {
     patients_view,
     logout,
     addUser,
-    getTotalClinicStaff
+    getTotalClinicStaff,
+    editUser,
+    updateUser,
+    deleteUser
 };

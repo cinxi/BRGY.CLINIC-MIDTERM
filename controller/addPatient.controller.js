@@ -79,6 +79,67 @@ const getTotalPatients = (req, res) => {
         });
 };
 
+// Edit Patient
+const editPatient = (req, res) => {
+    const patientId = req.params.id;
+    models.Patient.findByPk(patientId)
+        .then(patient => {
+            if (patient) {
+                res.render("staff/editPatient", { patient });
+            } else {
+                res.redirect("/staff/patients");
+            }
+        })
+        .catch(error => {
+            console.error("Error fetching patient:", error);
+            res.redirect("/staff/patients");
+        });
+};
+
+// Update Patient
+const updatePatient = (req, res) => {
+    const patientId = req.params.id;
+    const updatedData = {
+        Patient_FirstName: req.body.Patient_FirstName,
+        Patient_LastName: req.body.Patient_LastName,
+        Patient_Gender: req.body.Patient_Gender,
+        DateofBirth: req.body.DateofBirth,
+        Patient_ContactNumber: req.body.Patient_ContactNumber,
+        Patient_Address: req.body.Patient_Address,
+    };
+
+    models.Patient.update(updatedData, {
+        where: { Patient_ID: patientId }
+    })
+    .then(() => {
+        res.redirect("/staff/patients");
+    })
+    .catch(error => {
+        console.error("Error updating patient:", error);
+        res.redirect("/staff/patients?message=UpdateError");
+    });
+};
+
+//  (Delete) Patient
+const deletePatient = (req, res) => {
+    const patientId = req.params.id;
+
+    models.Patient.destroy({
+        where: { Patient_ID: patientId }
+    })
+    .then(() => {
+        res.redirect("/staff/patients");
+    })
+    .catch(error => {
+        console.error("Error deleting patient:", error);
+        res.redirect("/staff/patients?message=DeleteError");
+    });
+};
+
+
+
+
+
 module.exports = {
     Admindashboard_view,
     usermanagement_view,
@@ -87,5 +148,8 @@ module.exports = {
     patients_view,
     logout,
     save_addPatient,
-    getTotalPatients // Exporting the getTotalPatients function
+    getTotalPatients ,
+    editPatient,
+    updatePatient,
+    deletePatient
 };

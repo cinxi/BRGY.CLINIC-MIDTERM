@@ -60,5 +60,12 @@ router.get("/admin/getTotalClinicStaff", admin_Controller.getTotalClinicStaff);
 // Fetch total number of patients
 router.get("/staff/getTotalPatients", addPatientController.getTotalPatients);
 
+// Edit user
+router.get("/admin/editUser/:id", admin_Controller.editUser);
+router.post("/admin/editUser/:id", admin_Controller.updateUser);
+
+// Delete user
+router.get("/admin/deleteUser/:id", admin_Controller.deleteUser);
+
 
 module.exports = router;

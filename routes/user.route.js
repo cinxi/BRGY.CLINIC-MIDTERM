@@ -28,7 +28,6 @@
 const express = require("express")
 const userController = require("../controller/user.controller.js")
 const addPatientController = require("../controller/addPatient.controller.js")
-
 const appointmentController = require("../controller/appointment.controller.js"); 
 
 const router = express.Router()
@@ -53,6 +52,14 @@ router.post("/login-user" , userController.login_user )
 router.post("/staff/addPatient", addPatientController.save_addPatient);
 router.get("/staff/patient", addPatientController.patients_view);
 
+
+// Edit Patient Route
+router.get("/staff/editPatient/:id", addPatientController.editPatient);
+router.post("/staff/editPatient/:id", addPatientController.updatePatient);
+
+
+// Delete Patient Route
+router.get("/staff/deletePatient/:id", addPatientController.deletePatient);
 
 
 
