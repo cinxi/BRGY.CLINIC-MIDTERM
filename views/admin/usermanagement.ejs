@@ -136,7 +136,11 @@
                     <td><%= user.Users_ID %></td>
                     <td><%= user.FirstName %></td>
                     <td><%= user.LastName %></td>
-                    <td><%= user.Users_Birthdate %></td>
+                    <td><%= new Date(user.Users_Birthdate).toLocaleDateString("en-US", { 
+                        month: "2-digit", 
+                        day: "2-digit", 
+                        year: "numeric" 
+                    }) %></td>
                     <td><%= user.Users_Gender %></td>
                     <td><%= user.ContactNumber %></td>
                  
