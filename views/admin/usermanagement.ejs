@@ -13,19 +13,7 @@
     <link rel="stylesheet" href="/css/admin/usermanagement.css">
 </head>
 <body>
-    <aside class="sidebar">
-        <div class="sidebar-header">
-            <img src="/image/logo.png" alt="logo">
-            <h3>Brgy. Clinic Appointment</h3>
-        </div>
-        <ul class="sidebar-links">
-            <h4>Main Menu</h4>
-            <div class="menu-separator"></div>
-            <li><a href="Admindashboard"><span class="material-symbols-outlined">Dashboard</span>Dashboard</a></li>
-            <li><a href="usermanagement"><span class="material-symbols-outlined">Manage_Accounts</span>User Management</a></li>
-            <li><a href="logs"><span class="material-symbols-outlined">History</span>Logs</a></li>
-            <li><a href="/login"><span class="material-symbols-outlined">Logout</span>Logout</a></li>
-        </ul>
+    <div class="header">
         <div class="user-account">
             <div class="user-profile">
                 <img src="/image/sabrina.png" alt="profile-img">
@@ -35,29 +23,44 @@
                 </div>
             </div>
         </div>
+    </div>
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <img src="/image/logo.png" alt="logo">
+            <h3>Brgy. Clinic Appointment</h3>
+        </div>
+        <ul class="sidebar-links">
+            <!-- <h4>Main Menu</h4> -->
+            <div class="menu-separator"></div>
+            <li><a href="Admindashboard"><span class="material-symbols-outlined">Dashboard</span>Dashboard</a></li>
+            <li><a href="usermanagement"><span class="material-symbols-outlined">Manage_Accounts</span>User Management</a></li>
+            <li><a href="logs"><span class="material-symbols-outlined">History</span>Logs</a></li>
+            <li><a href="/login"><span class="material-symbols-outlined">Logout</span>Logout</a></li>
+        </ul>
+        
     </aside>
 
-    <main class="main-content p-4 w-100">
+    <main class="main-content">
         <div class="sticky-header">
             <h2>User Management</h2>
         </div>
         <br>
 
-        <!-- Add New User Button -->
-        <button id="addUserBtn" class="btn btn-add">
-            <span class="material-symbols-outlined">
-                person_add
+        <div class="add-search">
+            <!-- Add New User Button -->
+            <button id="addUserBtn" class="btn btn-add">
+                <span class="material-symbols-outlined">
+                    person_add
                 </span> Add New User
-        </button>
+            </button>
+              
+            <!-- Add Search Field -->
+            <div class="search-container">
+                <span class="material-icons search-icon">search</span>
+                <input type="text" id="searchInput" placeholder="Search">
+            </div>
+        </div>
         
-
-                  
-   <!-- Add Search Field -->
-<div class="search-container">
-    <span class="material-icons search-icon">search</span>
-    <input type="text" id="searchInput" placeholder="Search">
-</div>
-
 
         <!-- User Modal -->
         <div id="userModal" class="modal">
@@ -115,73 +118,73 @@
         </div>
 
        <!-- User Table -->
-<div class="table-responsive">
-    <table class="reports-table">
-        <thead>
-            <tr>
-                <th>User ID</th>
-                <th>Firstname</th>
-                <th>Lastname</th>
-                <th>Birthdate</th>
-                <th>Gender</th>
-                <th>Contact Number</th>
-                <th>Username</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        
-        <tbody id="userTableBody"> 
-            <% users.forEach(user => { %>
-                <tr>
-                    <td><%= user.Users_ID %></td>
-                    <td><%= user.FirstName %></td>
-                    <td><%= user.LastName %></td>
-                    <td><%= new Date(user.Users_Birthdate).toLocaleDateString("en-US", { 
-                        month: "2-digit", 
-                        day: "2-digit", 
-                        year: "numeric" 
-                    }) %></td>
-                    <td><%= user.Users_Gender %></td>
-                    <td><%= user.ContactNumber %></td>
-                 
-                    <td><%= user.Username %></td>
-                    <td>
-                        <a href="/admin/editUser/<%= user.Users_ID %>" class="btn btn-edit">Edit</a>
-                        <a href="/admin/deleteUser/<%= user.Users_ID %>" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this user?')">Delete</a>
-                    </td>
-                    
-                </tr>
-            <% }) %>
-        </tbody>
-    </table>
-</div>
+        <div class="table-responsive">
+            <table class="reports-table">
+                <thead>
+                    <tr>
+                        <th>User ID</th>
+                        <th>Firstname</th>
+                        <th>Lastname</th>
+                        <th>Birthdate</th>
+                        <th>Gender</th>
+                        <th>Contact Number</th>
+                        <th>Username</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                
+                <tbody id="userTableBody"> 
+                    <% users.forEach(user => { %>
+                        <tr>
+                            <td><%= user.Users_ID %></td>
+                            <td><%= user.FirstName %></td>
+                            <td><%= user.LastName %></td>
+                            <td><%= new Date(user.Users_Birthdate).toLocaleDateString("en-US", { 
+                                month: "2-digit", 
+                                day: "2-digit", 
+                                year: "numeric" 
+                            }) %></td>
+                            <td><%= user.Users_Gender %></td>
+                            <td><%= user.ContactNumber %></td>
+                        
+                            <td><%= user.Username %></td>
+                            <td>
+                                <a href="/admin/editUser/<%= user.Users_ID %>" class="btn btn-edit">Edit</a>
+                                <a href="/admin/deleteUser/<%= user.Users_ID %>" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this user?')">Delete</a>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+   </main>
+    <script>
 
-<script>
-
-    // Modal functionality
-    document.getElementById("addUserBtn").onclick = function() {
-        document.getElementById("userModal").style.display = "block";
-    };
-    document.getElementById("closeModal").onclick = function() {
-        document.getElementById("userModal").style.display = "none";
-    };
-    window.onclick = function(event) {
-        if (event.target == document.getElementById("userModal")) {
+        // Modal functionality
+        document.getElementById("addUserBtn").onclick = function() {
+            document.getElementById("userModal").style.display = "block";
+        };
+        document.getElementById("closeModal").onclick = function() {
             document.getElementById("userModal").style.display = "none";
-        }
-    };
+        };
+        window.onclick = function(event) {
+            if (event.target == document.getElementById("userModal")) {
+                document.getElementById("userModal").style.display = "none";
+            }
+        };
 
-    // Search functionality for filtering user table rows
-    document.getElementById("searchInput").addEventListener("keyup", function () {
-        const filter = this.value.toLowerCase();
-        const rows = document.querySelectorAll("#userTableBody tr");
+        // Search functionality for filtering user table rows
+        document.getElementById("searchInput").addEventListener("keyup", function () {
+            const filter = this.value.toLowerCase();
+            const rows = document.querySelectorAll("#userTableBody tr");
 
-        rows.forEach((row) => {
-            const cells = row.querySelectorAll("td");
-            const match = Array.from(cells).some((cell) =>
-                cell.textContent.toLowerCase().includes(filter)
-            );
-            row.style.display = match ? "" : "none";
+            rows.forEach((row) => {
+                const cells = row.querySelectorAll("td");
+                const match = Array.from(cells).some((cell) =>
+                    cell.textContent.toLowerCase().includes(filter)
+                );
+                row.style.display = match ? "" : "none";
+            });
         });
-    });
-</script>
+    </script>
+</body>
