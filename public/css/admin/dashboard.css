@@ -262,7 +262,7 @@ body {
 }
 
 .card {
-    background-color: #7fdaf9;
+    background-color: #9ad6ea;
     padding: 10px; /* Reduced padding for a smaller appearance */
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -281,4 +281,12 @@ body {
     font-weight: bold;
     margin-top: 8px;
     color: #007bff;
+}
+
+
+
+.sticky-header h4 {
+    font-size: 1.25rem;
+    color: #176B87;
+    margin-bottom: 15px;
 }

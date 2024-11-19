@@ -38,11 +38,10 @@
 
     <main class="main-content p-4 w-100">
         <div class="sticky-header">
-            <h2>Statistic</h2>
+            <h4>Statistic</h4>
         </div>
-        <br>
-        
-        
+    
+ 
         
         <!-- Dashboard Content -->
         <div class="dashboard-users">
@@ -57,11 +56,11 @@
         </div>
 
 
-        <!-- You can also add other stats or information here -->
+        <!-- other stats or information here -->
     
     <script>
         // You can add JS to fetch data dynamically if needed
-        fetch('/admin/getTotalClinicStaff') // Assuming you have a route to fetch this data
+        fetch('/admin/getTotalClinicStaff')
             .then(response => response.json())
             .then(data => {
                 document.getElementById('totalStaffUsers').innerText = data.totalStaff;

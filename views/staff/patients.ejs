@@ -35,7 +35,7 @@
         <ul class="sidebar-links">
          
             <li><a href="Staffdashboard"><span class="material-icons">dashboard</span>Dashboard</a></li>
-            <li><a href="appointment"><span class="material-icons">today</span>Appointments</a></li>
+            <li><a href="appointment"><span class="material-icons">today</span> Appointments</a></li>
             <li><a href="patients"><span class="material-icons">groups</span>Patients Record</a></li>
             <li><a href="/login"><span class="material-icons">logout</span>Logout</a></li> 
         </ul>
@@ -45,14 +45,14 @@
     
     <main class="main-content p-4 w-100">
         <div class="sticky-header">
-            <h2>Patients Record</h2>       
+            <h4>Patients Record</h4>       
         </div>
-        <br>
+      
 
-  
+        <div class="add-search">
         <!-- Add New Patient Button -->
         <button id="addPatientBtn" class="btn btn-add">
-            <span class="material-icons">add</span> Add New Patient
+            <span class="material-icons">add</span> Register New Patient
         </button>
 
             
@@ -61,13 +61,13 @@
         <span class="material-icons search-icon">search</span>
         <input type="text" id="searchInput" placeholder="Search">
     </div>
-    
+        </div>
   
         <!-- Patient Form Modal -->
         <div id="patientModal" class="modal">
             <div class="modal-content">
                 <span id="closeModal" class="close">&times;</span>
-                <h3>Add New Patient</h3>
+                <h3> Patient Registration Form</h3>
                 <form action="/staff/addPatient" method="POST"> 
                    
             

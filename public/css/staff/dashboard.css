@@ -177,79 +177,66 @@ body {
 }
 
 
-/* Button styling */
-.btn {
-    padding: 10px 15px;
+
+
+.main-content {
+    margin-left: 160px;
+    padding: 20px;
+    width: 80%;
+    
+}
+.sticky-header {
+    
+    padding: 10px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+.calendar-container {
+    margin-top: 20px;
+}
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.calendar-header h2 {
+    margin: 0;
+}
+.calendar {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+.calendar th, .calendar td {
+    border: 1px solid #ccc;
+    text-align: center;
+    padding: 10px;
+    width: 14.2%;
+}
+.calendar th {
+    background-color: #0083a3;
+    color: white;
+}
+.calendar td {
+    height: 80px;
+    background-color: #f9f9f9;
+}
+.calendar-controls button {
+    padding: 5px 10px;
     border: none;
+    background-color: #0083a3;
+    color: white;
     border-radius: 5px;
-    font-size: 1rem;
-    font-weight: 500;
     cursor: pointer;
 }
-
-.btn-success {
-    margin-top: 20px; /* Adjust the value as needed */
-}
-
-.btn-primary {
-    background-color: #007bff; /* Blue background */
-    color: white;
-}
-
-.btn-danger {
-    background-color: #dc3545; /* Red background */
-    color: white;
-}
-
-/* Table container for horizontal scroll */
-.table-responsive {
-    overflow-x: auto;
-    width: 100%;
-}
-
-.reports-table {
-    width: 100%;
-    min-width: 1200px; /* Set minimum width for scroll */
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.reports-table thead th {
-    background-color: #161a2d;
-    color: #ffffff;
-    font-weight: 500;
-    padding: 12px;
-    text-align: left;
-    border-bottom: 2px solid #333578;
-}
-
-.reports-table tbody td {
-    padding: 12px;
-    color: #333;
-    border-bottom: 1px solid #e9ecef;
-}
-
-.reports-table tbody tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
-
-.reports-table tbody tr:hover {
-    background-color: #e0e0e0;
+.calendar-controls button:hover {
+    background-color: #005f75;
 }
 
 
-/* Responsive adjustments */
-@media (max-width: 430px) {
-    .main-content {
-        margin-left: 0;
-    }
-
-
-    .main-content h2, .main-content h4 {
-        font-size: 1.25rem;
-    }
+.sticky-header h4 {
+    font-size: 1.25rem;
+    color: #176B87;
+    margin-bottom: 15px;
 }
-
-
