@@ -51,7 +51,8 @@ const save_user = (req, res) => {
     // Insert to database
     models.user.create(user_data)
         .then(result => {
-            res.redirect("register?message=AddedSuccessfully!");
+            // res.redirect("register?message=AddedSuccessfully!");
+            res.redirect("/login");
         })
         .catch(error => {
             console.error("Database insertion error:", error);
