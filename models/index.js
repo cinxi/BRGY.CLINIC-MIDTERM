@@ -83,6 +83,23 @@ Object.keys(db).forEach(modelName => {
     db[modelName].associate(db);
   }
 });
+sequelize.authenticate()
+    .then(() => {
+        console.log('Database connection established successfully.');
+    })
+    .catch(err => {
+        console.error('Unable to connect to the database:', err);
+    });
+
+    sequelize.sync({ alter: true })
+    .then(() => {
+        console.log("All models were synchronized successfully.");
+    })
+    .catch((err) => {
+        console.error("Error syncing models:", err);
+    });
+
+
 
 // Add sequelize instance and Sequelize constructor to db object
 db.sequelize = sequelize;

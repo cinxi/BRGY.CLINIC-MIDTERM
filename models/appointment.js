@@ -1,12 +1,12 @@
 
-//models
-//appointment.js
-
+//model
+//appointment
 
 'use strict';
 const {
   Model
 } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class Appointment extends Model {
     /**
@@ -14,39 +14,49 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-
-
-
     static associate(models) {
-      // define association here
+      // Define association: Appointment belongs to Patient
+      Appointment.belongsTo(models.Patient, {
+        foreignKey: 'Patient_ID',
+        as: 'Patient'
+      });
     }
-
-
-//     // models/appointment.js
-// static associate(models) {
-//   Appointment.belongsTo(models.Patient, { foreignKey: 'Patient_ID', as: 'Patient' });
-// }
-
-
-
-
   }
+
   Appointment.init({
     Appointment_ID: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true
     },
-    Patient_ID: DataTypes.INTEGER,
-    Users_ID: DataTypes.INTEGER,
-    Appointment_Date: DataTypes.DATE,
-    Appointment_Time: DataTypes.TIME,
-    Appointment_Purpose: DataTypes.STRING,
-    Appointment_Status: DataTypes.STRING
+    Patient_ID: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    Users_ID: {
+      type: DataTypes.INTEGER,
+      allowNull: true // Allow NULL temporarily
+    },
+    Appointment_Date: {
+      type: DataTypes.DATE,
+      allowNull: false
+    },
+    Appointment_Time: {
+      type: DataTypes.TIME,
+      allowNull: false
+    },
+    Appointment_Purpose: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    Appointment_Status: {
+      type: DataTypes.STRING,
+      allowNull: false
+    }
   }, {
     sequelize,
     modelName: 'Appointment',
   });
+
   return Appointment;
 };
-

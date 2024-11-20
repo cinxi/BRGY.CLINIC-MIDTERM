@@ -79,13 +79,13 @@ const getTotalPatients = (req, res) => {
         });
 };
 
-// Edit Patient
+// editPatient view in addPatient.controller.js
 const editPatient = (req, res) => {
     const patientId = req.params.id;
     models.Patient.findByPk(patientId)
         .then(patient => {
             if (patient) {
-                res.render("staff/editPatient", { patient });
+                res.render("staff/editPatientModal", { patient });
             } else {
                 res.redirect("/staff/patients");
             }
@@ -96,9 +96,10 @@ const editPatient = (req, res) => {
         });
 };
 
+
 // Update Patient
 const updatePatient = (req, res) => {
-    const patientId = req.params.id;
+    const patientId = req.body.Patient_ID;
     const updatedData = {
         Patient_FirstName: req.body.Patient_FirstName,
         Patient_LastName: req.body.Patient_LastName,
@@ -119,6 +120,7 @@ const updatePatient = (req, res) => {
         res.redirect("/staff/patients?message=UpdateError");
     });
 };
+
 
 //  (Delete) Patient
 const deletePatient = (req, res) => {

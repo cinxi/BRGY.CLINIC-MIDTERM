@@ -166,5 +166,6 @@ module.exports = {
     getTotalClinicStaff,
     editUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    
 };

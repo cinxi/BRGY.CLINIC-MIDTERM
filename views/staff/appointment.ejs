@@ -30,13 +30,11 @@
             <h3>Brgy. Clinic Appointment</h3>
         </div>
         <ul class="sidebar-links">
-         
             <li><a href="Staffdashboard"><span class="material-icons">dashboard</span>Dashboard</a></li>
-            <li><a href="appointment"><span class="material-icons">today</span> Appointments</a></li>
+            <li><a href="appointment"><span class="material-icons">today</span>Appointments</a></li>
             <li><a href="patients"><span class="material-icons">groups</span>Patients Record</a></li>
             <li><a href="/login"><span class="material-icons">logout</span>Logout</a></li> 
         </ul>
-      
     </aside>
   
 
@@ -46,11 +44,20 @@
         </div>
 
 
+        <div class="add-search">
 
+            
         <!-- Button to open the Appointment Form Modal -->
         <button id="addAppointmentBtn" class="btn btn-add">
             <span class="material-symbols-outlined">add</span> Add Appointment
         </button>
+
+    <!--  Search Field -->
+    <div class="search-container">
+        <span class="material-icons search-icon">search</span>
+        <input type="text" id="searchInput" placeholder="Search">
+    </div>
+        </div>
 
         <!-- Appointment Form Modal -->
         <div id="appointmentModal" class="modal">
@@ -64,9 +71,7 @@
                     <div class="form-group">
                         <label for="patient_id">Patient Name:</label>
                         <select name="Patient_ID" id="patient_id" required>
-
                             <option value="">Select Patient Name</option>
-
                             <% if (patientList && patientList.length > 0) { %>
                                 <% patientList.forEach(patient => { %>
                                     <option value="<%= patient.id %>"><%= patient.name %></option>
@@ -76,10 +81,7 @@
                             <% } %>
                         </select>
                     </div>
-                    <!-- <div class="form-group">
-                        <label for="users_id">Clinic Staff:</label>
-                        <input type="number" name="User_ID" id="users_id" required>
-                    </div> -->
+                   
                     <div class="form-group">
                         <label for="appointment_date">Appointment Date:</label>
                         <input type="date" name="Appointment_Date" id="appointment_date" required>
@@ -100,77 +102,131 @@
                         <input name="Appointment_Status" type="text" class="form-control" id="Appointment_Status" value="Scheduled" readonly>
                     </div>
 
-       
-
                     <button type="submit" class="btn btn-success">Add Appointment</button>
                 </form>
             </div>
         </div>
 
-        <br>
+    
 
         <!-- Existing Appointments -->
         <div class="appointment-table">
-        <div class="table-responsive">
-            <table class="reports-table">
-                <thead>
-                    <tr>
-
-                        <th>Appointment ID</th>
-                        <th>Patient Name</th>
-                        <!-- <th>Staff Incharge</th> -->
-                        <th>Date</th>
-                        <th>Time</th>
-                        <th>Purpose</th>
-                        <th>Status</th>
-                         <th>Actions</th>
-                        
-                    </tr>
-
-                </thead>
-
-                <tbody>
-                    <tr>
-                        <td>100</td>
-                        <td>Taylor Swift</td>
-                        <td>10/10/24</td>
-                        <td>10:10 am</td>
-                        <td>vaccine shot</td>
-                     
-                        <td>
-                            <!-- <select name="Appointment_Status" required>
-
-                                <option value="">Select</option>
-                                
-                                <option value="Schedule">Schedule</option>
-                                <option value="Rescheduled">Rescheduled</option>
-                                <option value="Completed">Completed</option>
-                            </select>  -->
-
-                            Scheduled
-
-                        </td>
-
-                        <td>
-                            <a href="#"class="btn btn-edit">Edit</a>
-                            <a href="#" class="btn btn-danger" >Cancel</a>
-                         
-                        </td>
-
-                    </tr>
-
- 
-                    
-                </tbody>
-
-
-
-            </table>
-        </section>
+            <div class="table-responsive">
+                <table class="reports-table">
+                    <thead>
+                        <tr>
+                            <th>Appointment ID</th>
+                            <th>Patient Name</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Purpose</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="appointmentTableBody">
+                        <% if (appointmentList && appointmentList.length > 0) { %>
+                            <% appointmentList.forEach(appointment => { %>
+                                <tr>
+                                    <td><%= appointment.id %></td>
+                                    <td><%= appointment.patientName %></td>
+                                    <td><%= appointment.date %></td>
+                                    <td><%= appointment.time %></td>
+                                    <td><%= appointment.purpose %></td>
+                                    <td><%= appointment.status %></td>
+                                    <td>
+                                        <!-- Edit Button: Trigger modal with existing data -->
+                                        <button class="btn btn-edit" onclick="openEditModal( '<%= appointment.id %>', '<%= appointment.date %>', '<%= appointment.time %>',  '<%= appointment.status %>')">Edit</button>
+                                        <!-- Delete Button: Redirect to delete route -->
+                                        <a href="/staff/deleteAppointment/<%= appointment.id %>" onclick="return confirm('Are you sure you want to cancel this appointment?')" class="btn btn-danger">Cancel</a>
+                                    </td>
+                                </tr>
+                            <% }); %>
+                        <% } else { %>
+                            <tr>
+                                <td colspan="7">No appointments available</td>
+                            </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </main>
+
+    <!-- Edit Appointment Modal -->
+    <div id="editAppointmentModal" class="modal">
+        <div class="modal-content">
+            <span id="closeEditModal" class="close">&times;</span>
+            <h3>Edit Appointment</h3>
+
+            <form id="editAppointmentForm" action="#" method="POST">
+                <div class="form-group">
+                    <label for="appointment_date">Appointment Date:</label>
+                    <input type="date" name="Appointment_Date" id="edit_appointment_date" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="appointment_time">Appointment Time:</label>
+                    <input type="time" name="Appointment_Time" id="edit_appointment_time" required>
+                </div>
+
+         
+                <div class="form-group">
+                    <label for="appointment_status">Appointment Status:</label>
+                    <select name="Appointment_Status" id="edit_appointment_status" required>
+                
+                        <option value="Rescheduled">Rescheduled</option>
+                        <option value="Completed">Completed</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-success">Save Changes</button>
+            </form>
+        </div>
+    </div>
 
     <!-- Modal and Button JavaScript -->
     <script>
+        document.getElementById("addAppointmentBtn").onclick = function() {
+            document.getElementById("appointmentModal").style.display = "block";
+        };
+
+        document.getElementById("closeModal").onclick = function() {
+            document.getElementById("appointmentModal").style.display = "none";
+        };
+
+        window.onclick = function(event) {
+            if (event.target == document.getElementById("appointmentModal")) {
+                document.getElementById("appointmentModal").style.display = "none";
+            }
+        };
+
+        // Open the Edit Appointment Modal with existing data
+        function openEditModal(id, date, time, status) {
+            document.getElementById("edit_appointment_date").value = date;
+            document.getElementById("edit_appointment_time").value = time;
+            document.getElementById("edit_appointment_status").value = status;
+            document.getElementById("editAppointmentForm").action = "/staff/editAppointment/" + id;
+
+            document.getElementById("editAppointmentModal").style.display = "block";
+        }
+
+        document.getElementById("closeEditModal").onclick = function() {
+            document.getElementById("editAppointmentModal").style.display = "none";
+        };
+
+        window.onclick = function(event) {
+            if (event.target == document.getElementById("editAppointmentModal")) {
+                document.getElementById("editAppointmentModal").style.display = "none";
+            }
+        };
+    </script>
+
+
+
+    <!-- JavaScript to handle Modal and Search -->
+    <script>
+        // Modal functionality
         document.getElementById("addAppointmentBtn").onclick = function() {
             document.getElementById("appointmentModal").style.display = "block";
         };
@@ -182,7 +238,22 @@
                 document.getElementById("appointmentModal").style.display = "none";
             }
         };
+
+         //inig search
+
+         document.getElementById("searchInput").addEventListener("keyup", function () {
+    const filter = this.value.toLowerCase();
+    const rows = document.querySelectorAll("#appointmentTableBody tr");
+
+    rows.forEach((row) => {
+        const cells = row.querySelectorAll("td");
+        const match = Array.from(cells).some((cell) =>
+            cell.textContent.toLowerCase().includes(filter)
+        );
+        row.style.display = match ? "" : "none";
+    });
+});
     </script>
-    
+
 </body>
 </html>

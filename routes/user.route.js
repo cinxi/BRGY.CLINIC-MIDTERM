@@ -53,14 +53,32 @@ router.post("/staff/addPatient", addPatientController.save_addPatient);
 router.get("/staff/patient", addPatientController.patients_view);
 
 
-// Edit Patient Route
-router.get("/staff/editPatient/:id", addPatientController.editPatient);
-router.post("/staff/editPatient/:id", addPatientController.updatePatient);
+// // Edit Patient Route
+// router.get("/staff/editPatient/:id", addPatientController.editPatient);
+// router.post("/staff/editPatient/:id", addPatientController.updatePatient);
 
 
 // Delete Patient Route
 router.get("/staff/deletePatient/:id", addPatientController.deletePatient);
 
+
+//update patient
+
+router.post("/staff/updatePatient", addPatientController.updatePatient);
+
+
+
+
+//APPOINTMENT
+
+// Route to edit an appointment (GET)
+router.get("/staff/editAppointment/:id", appointmentController.editAppointment_view);
+
+// Route to update an appointment (POST)
+router.post("/staff/editAppointment/:id", appointmentController.save_editAppointment);
+
+// Route to delete an appointment (GET)
+router.get("/staff/deleteAppointment/:id", appointmentController.deleteAppointment);
 
 
 
