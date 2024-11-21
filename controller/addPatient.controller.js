@@ -101,22 +101,17 @@ const editPatient = (req, res) => {
 const updatePatient = (req, res) => {
     const patientId = req.body.Patient_ID;
     const updatedData = {
-        Patient_FirstName: req.body.Patient_FirstName,
-        Patient_LastName: req.body.Patient_LastName,
-        Patient_Gender: req.body.Patient_Gender,
-        DateofBirth: req.body.DateofBirth,
         Patient_ContactNumber: req.body.Patient_ContactNumber,
-        Patient_Address: req.body.Patient_Address,
     };
 
     models.Patient.update(updatedData, {
-        where: { Patient_ID: patientId }
+        where: { Patient_ID: patientId },
     })
     .then(() => {
         res.redirect("/staff/patients");
     })
-    .catch(error => {
-        console.error("Error updating patient:", error);
+    .catch((error) => {
+        console.error("Error updating contact number:", error);
         res.redirect("/staff/patients?message=UpdateError");
     });
 };
