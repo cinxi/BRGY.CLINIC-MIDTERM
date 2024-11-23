@@ -117,9 +117,9 @@
                         <tr>
                             <th>Appointment ID</th>
                             <th>Patient Name</th>
-                            <th>Date</th>
-                            <th>Time</th>
-                            <th>Purpose</th>
+                            <th>Appointment Date</th>
+                            <th>Appointment Time</th>
+                            <th> Purpose</th>
                             <th>Status</th>
                             <th>Actions</th>
                         </tr>
@@ -130,7 +130,15 @@
                                 <tr>
                                     <td><%= appointment.id %></td>
                                     <td><%= appointment.patientName %></td>
-                                    <td><%= appointment.date %></td>
+        
+                                    <td><%= new Date(appointment.date).toLocaleDateString("en-US", { 
+                                        month: "2-digit", 
+                                        day: "2-digit", 
+                                        year: "numeric" 
+                                    }) %>
+
+                                    </td>
+                                    
                                     <td><%= appointment.time %></td>
                                     <td><%= appointment.purpose %></td>
                                     <td><%= appointment.status %></td>
@@ -174,11 +182,13 @@
                 <div class="form-group">
                     <label for="appointment_status">Appointment Status:</label>
                     <select name="Appointment_Status" id="edit_appointment_status" required>
-                
+                        <option value="Scheduled">Scheduled</option>
                         <option value="Rescheduled">Rescheduled</option>
                         <option value="Completed">Completed</option>
+                   
                     </select>
                 </div>
+                
 
                 <button type="submit" class="btn btn-success">Save Changes</button>
             </form>
@@ -201,15 +211,34 @@
             }
         };
 
-        // Open the Edit Appointment Modal with existing data
-        function openEditModal(id, date, time, status) {
-            document.getElementById("edit_appointment_date").value = date;
-            document.getElementById("edit_appointment_time").value = time;
-            document.getElementById("edit_appointment_status").value = status;
-            document.getElementById("editAppointmentForm").action = "/staff/editAppointment/" + id;
+    // Open the Edit Appointment Modal with existing data
+    function openEditModal(id, date, time, status) {
+    // Format date for input type="date" (YYYY-MM-DD)
+    const formattedDate = new Date(date).toISOString().split('T')[0];
 
-            document.getElementById("editAppointmentModal").style.display = "block";
-        }
+    // Convert 12-hour time format to 24-hour format
+    const [timePart, period] = time.split(' ');
+    let [hours, minutes] = timePart.split(':').map(Number);
+
+    if (period === 'PM' && hours !== 12) {
+        hours += 12;
+    } else if (period === 'AM' && hours === 12) {
+        hours = 0;
+    }
+
+    const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+
+    document.getElementById("edit_appointment_date").value = formattedDate;
+    document.getElementById("edit_appointment_time").value = formattedTime;
+    document.getElementById("edit_appointment_status").value = status;
+    document.getElementById("editAppointmentForm").action = "/staff/editAppointment/" + id;
+
+
+    //SHOW THE MODAL
+    document.getElementById("editAppointmentModal").style.display = "block";
+}
+
+
 
         document.getElementById("closeEditModal").onclick = function() {
             document.getElementById("editAppointmentModal").style.display = "none";

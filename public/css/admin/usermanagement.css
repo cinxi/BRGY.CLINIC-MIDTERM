@@ -209,6 +209,7 @@ body {
     background-color: #007bff; 
     color: white;
     font-size: x-small;
+    text-decoration: none;
 }
 
 
@@ -218,6 +219,7 @@ body {
     font-size: x-small;
     text-decoration: none;
 }
+
 
 
 table{
@@ -369,11 +371,18 @@ form input, form select {
     border: 1px solid #ccc;
     margin-bottom: 5px;
     width: 100%;
+    
+
  
 }
 
 
 
+
+.form-control{
+    color:black
+  
+}
 
 
 form button {
@@ -387,12 +396,12 @@ form button {
 }
 
 form button:hover {
-    background-color: #176B87;
+    background-color: #0056b3;
 }
 
 /* Button styling */
 .btn-success {
-    background-color: #115369;
+    background-color: #176B87;
     color: white;
     padding: 10px 20px;
     border: none;
@@ -402,7 +411,7 @@ form button:hover {
 }
 
 .btn-success:hover {
-    background-color: #0056b3;
+    background-color: #11546b;
 }
 
 

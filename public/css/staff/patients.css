@@ -248,6 +248,7 @@ table{
     background-color: #176B87;
     color: white;
     padding: 10px;
+    /* font-weight: normal; */
 }
 .reports-table tbody td {
     padding: 12px;
@@ -365,6 +366,7 @@ table{
 form {
     display: flex;
     flex-direction: column;
+    color: #000;
   
    
 }
@@ -374,6 +376,7 @@ form label {
     margin: 10px 0 5px;
     color: rgb(91, 85, 85);
 }
+
 
 form input, form select {
     padding: 5px;

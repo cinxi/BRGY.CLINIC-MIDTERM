@@ -114,16 +114,13 @@ const editUser = (req, res) => {
 };
 
 // Update User Data
+// Update User Data
 const updateUser = (req, res) => {
     const userId = req.params.id;
     const updatedData = {
         FirstName: req.body.firstName_data,
         LastName: req.body.lastName_data,
-        Users_Birthdate: req.body.birthdate_data,
-        Users_Gender: req.body.gender_data,
         ContactNumber: req.body.contactNumber_data,
-        Username: req.body.Username_data,
-        // Optionally, handle password update
     };
 
     models.user.update(updatedData, {

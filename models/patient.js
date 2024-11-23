@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
     Patient_LastName: DataTypes.STRING,
     Patient_Gender: DataTypes.STRING,
     DateofBirth: DataTypes.DATE,
-    Patient_ContactNumber: DataTypes.BIGINT,
+    Patient_ContactNumber: DataTypes.STRING,
     Patient_Address: DataTypes.STRING
   }, {
     sequelize,

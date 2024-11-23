@@ -67,5 +67,9 @@ router.post("/admin/editUser/:id", admin_Controller.updateUser);
 // Delete user
 router.get("/admin/deleteUser/:id", admin_Controller.deleteUser);
 
+// Update User route
+router.post("/admin/editUser/:id", admin_Controller.updateUser);
+
+
 
 module.exports = router;

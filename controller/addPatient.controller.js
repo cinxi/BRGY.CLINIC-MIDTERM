@@ -101,6 +101,8 @@ const editPatient = (req, res) => {
 const updatePatient = (req, res) => {
     const patientId = req.body.Patient_ID;
     const updatedData = {
+        Patient_LastName: req.body.Patient_LastName,
+        Patient_FirstName: req.body.Patient_FirstName,
         Patient_ContactNumber: req.body.Patient_ContactNumber,
     };
 
@@ -111,7 +113,7 @@ const updatePatient = (req, res) => {
         res.redirect("/staff/patients");
     })
     .catch((error) => {
-        console.error("Error updating contact number:", error);
+        console.error("Error updating patient:", error);
         res.redirect("/staff/patients?message=UpdateError");
     });
 };

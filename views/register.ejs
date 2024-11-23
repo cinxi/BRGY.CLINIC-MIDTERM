@@ -26,6 +26,7 @@
                         <label for="firstName">Firstname</label>
                         <input name="firstName_data" type="text" class="form-control" id="firstName" required>
                     </div>
+
                     <div class="form-group">
                             <label for="lastName">Lastname</label>
                             <input name="lastName_data" type="text" class="form-control" id="lastName" required>
@@ -50,11 +51,25 @@
                 </div>
                 
                     
-                    <div class="form-group">
-                        <label for="ContactNumber">Contact Number</label>
-                        <input type="tel" class="form-control"  placeholder="Enter 11-digit contact number" id="ContactNumber" name="contactNumber_data" pattern="\d{11}" required>
+                         <div class="form-group">
+                        <label for="ContactNumber">Contact Number:</label>
+                        <input type="tel" 
+                               class="form-control" 
+                               id="ContactNumber" 
+                               name="contactNumber_data" 
+                               pattern="[0-9]{11}" 
+                               maxlength="11" 
+                               minlength="11" 
+                               required 
+                               title="Contact number must be exactly 11 digits (e.g., 09123456789)">
+                        <!-- <small class="form-text text-muted">Enter 11-digit contact number (e.g., 09123456789).</small> -->
                     </div>
-            </div>
+                    
+                    </div>
+
+
+            
+            
                     
             <div class="right-group">
                     <div class="form-group">
@@ -73,17 +88,20 @@
                         <label for="confirmPassword">Confirm Password</label>
                         <input name="ConfirmPassword_data" type="password" class="form-control" id="confirmPassword" required>
                     </div>
-            </div>
-        </div>
-        
-        
-        
+
+                           
 
         <% if (message) { %>
             <div class="text-danger">
                 <%= message %>
             </div>
         <% } %>
+        
+            </div>
+        </div>
+        
+        
+ 
 
         <br>
 

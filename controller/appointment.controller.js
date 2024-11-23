@@ -2,8 +2,10 @@
 
 const models = require("../models");
 
+
+
 // Fetch patients and render the appointment view
-// Fetch patients and appointments, then render the appointment view
+
 const appointment_view = async (req, res) => {
     const message = req.query.message || null;
 
@@ -29,15 +31,25 @@ const appointment_view = async (req, res) => {
             attributes: ['Appointment_ID', 'Appointment_Date', 'Appointment_Time', 'Appointment_Purpose', 'Appointment_Status']
         });
 
-        // Format the appointment data for display
-        const appointmentList = appointments.map(appointment => ({
-            id: appointment.Appointment_ID,
-            patientName: `${appointment.Patient.Patient_FirstName} ${appointment.Patient.Patient_LastName}`,
-            date: appointment.Appointment_Date.toISOString().split('T')[0], // Format as YYYY-MM-DD
-            time: appointment.Appointment_Time,
-            purpose: appointment.Appointment_Purpose,
-            status: appointment.Appointment_Status
-        }));
+
+         // Format the appointment data for display
+    const appointmentList = appointments.map(appointment => {
+    const formattedDate = new Intl.DateTimeFormat('en-CA').format(new Date(appointment.Appointment_Date));  // Format as YYYY-MM-DD
+    const formattedTime = new Intl.DateTimeFormat('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }).format(new Date(`1970-01-01T${appointment.Appointment_Time}`));
+
+    return {
+        id: appointment.Appointment_ID,
+        patientName: `${appointment.Patient.Patient_FirstName} ${appointment.Patient.Patient_LastName}`,
+        date: formattedDate,
+        time: formattedTime,
+        purpose: appointment.Appointment_Purpose,
+        status: appointment.Appointment_Status
+    };
+});
+        
+
+
+        
 
         res.render("staff/appointment", { message, patientList, appointmentList });
     } catch (error) {
@@ -45,7 +57,6 @@ const appointment_view = async (req, res) => {
         res.render("staff/appointment", { message, patientList: [], appointmentList: [], error: "Failed to load data" });
     }
 };
-
 
 
 
