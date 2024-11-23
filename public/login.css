@@ -6,10 +6,14 @@
     font-weight: bold;
 }
 
-
-
 body {
-    background-color: #f4f8fc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #c0d6ff;
+    background: linear-gradient(to right, #e2e2e2, #c9f1ff);
+    margin: 0;
 }
 
 .container {
@@ -17,15 +21,17 @@ body {
 }
 
 .heading {
-    font-size: 2rem;
+    font-size: 3rem;
     color: #3a6d84;
     font-weight: bold;
 }
 
 .login-card {
+    /* max-height: 500px;
+    max-width: 380px; */
     background-color: #fff;
     padding: 30px;
-    border-radius: 8px;
+    border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -70,3 +76,7 @@ body {
     color: #3a6d84;
     text-decoration: underline;
 }
+/* 
+button [type="submit"]{
+    margin-top: 10px;
+} */

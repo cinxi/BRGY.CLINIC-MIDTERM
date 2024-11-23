@@ -40,75 +40,63 @@
     </aside>
   
 
-   <main class="main-content">
+    <main class="main-content p-4 w-100">
         <div class="sticky-header">
-           
-            <h4> Dashboard</h4>
+            <h4>Hello, Taylor Swift!</h4>
+        </div>
+        
+        <div class="contents">
+                    <!-- Calendar Section -->
+                <div class="calendar-container">
+                    <div class="calendar-header">
+                        <button id="prev-month" class="nav-btn">&lt;</button>
+                        <h2 id="current-month">November 2024</h2>
+                        <button id="next-month" class="nav-btn">&gt;</button>
+                    </div>
+                    <div class="calendar">
+                        <div class="calendar-days">
+                            <div class="day">Sun</div>
+                            <div class="day">Mon</div>
+                            <div class="day">Tue</div>
+                            <div class="day">Wed</div>
+                            <div class="day">Thu</div>
+                            <div class="day">Fri</div>
+                            <div class="day">Sat</div>
+                        </div>
+                        <div id="calendar-dates" class="calendar-dates">
+                            <!-- Dates dynamically generated -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Appointments Table -->
+                <table class="appointment-table">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Appointment</th>
+                            <th>Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="time">10:00 AM</td>
+                            <td class="details">Eve Liu</td>
+                            <td class="details">Consultation</td>
+                        </tr>
+                        <tr>
+                            <td class="time">02:00 PM</td>
+                            <td class="details">Athanasia Obelia</td>
+                            <td class="details">Follow-up</td>
+                        </tr>
+                    </tbody>
+                </table>
         </div>
 
-        <div class="calendar-container">
-            <div class="calendar-header">
-                <h3>November 2024</h3>
-                <div class="calendar-controls">
-                    <button>&lt;</button>
-                    <!-- <button>Today</button> -->
-                    <button>&gt;</button>
-                </div>
-            </div>
-            <table class="calendar">
-                <thead>
-                    <tr>
-                        <th>SUN</th>
-                        <th>MON</th>
-                        <th>TUE</th>
-                        <th>WED</th>
-                        <th>THU</th>
-                        <th>FRI</th>
-                        <th>SAT</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Empty cells for November -->
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        
     </main>
-       
+    
+    <script src="/js/calendar.js"></script>
+
 </body>
 </html>

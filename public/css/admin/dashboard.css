@@ -162,18 +162,17 @@ body {
 .main-content {
     background-color: #ffffff;
     width: 85%;
-    height: 80vh;
+    height: 85vh;
     border-radius: 15px;
-    /* padding: auto 2rem; */
-    margin-left: 85px; /* Space for sidebar */
     padding: 20px;
-    margin-left: 10%;
+    margin-left: 12%;
     margin-top: 6%;
     transition: margin-left 0.4s ease;
 }
 
 .sidebar:hover + .main-content {
-    margin-left: 280px; 
+    margin-left: 300px; 
+    width: 70%;
 }
 
 
@@ -188,20 +187,18 @@ body {
 }
 
 .btn-success {
-    margin-top: 20px; /* Adjust the value as needed */
+    margin-top: 20px; 
 }
 
 .btn-primary {
-    background-color: #007bff; /* Blue background */
+    background-color: #007bff; 
     color: white;
 }
 
 .btn-danger {
-    background-color: #dc3545; /* Red background */
+    background-color: #dc3545; 
     color: white;
 }
-
-/* Table container for horizontal scroll */
 .table-responsive {
     overflow-x: auto;
     width: 100%;
@@ -209,7 +206,7 @@ body {
 
 .reports-table {
     width: 100%;
-    min-width: 1200px; /* Set minimum width for scroll */
+    min-width: 1200px; 
     background-color: #f8f9fa;
     border-radius: 8px;
     overflow: hidden;
@@ -240,54 +237,139 @@ body {
 }
 
 
-/* Responsivenesss */
-@media (max-width: 430px) {
-    .main-content {
-        margin-left: 0;
-    }
+/* dashboard content*/
 
 
-    .main-content h2, .main-content h4 {
-        font-size: 1.25rem;
-    }
-}
-
-
-
-/* sdashborad */
-.dashboard-users, .dashboard-patients {
+.dashboard-cards{
     display: flex;
     gap: 15px;
-    margin-top: 10px;
+    margin-top: 20px;
+    margin-left: 20px;
+
 }
 
 .card {
-    background-color: #9be3fa;
-    background-image: url(); /* set an img for cards */
-    padding: 10px; 
+    background-color: #1d81a3cb;
+    background-image: url(); 
+    padding: 20px; 
     border-radius: 15px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     flex: 1;
     text-align: center;
-    max-width: 250px; 
+    max-width: 200px;
+    min-height: 120px;
+    min-width: 130px;
 }
 
 .card h3 {
     font-size: 14px; 
-    color: #333;
+    color: #ffffff;
+    font-weight: 600;
 }
 
 .stat-number {
-    font-size: 18px; 
+    font-size: 25px; 
     font-weight: bold;
     margin-top: 8px;
-    color: #007bff;
+    color: #cafafc;
+}
+
+.sticky-header h4 {
+    font-size: 1.80rem;
+    color: #176B87;
+    margin-bottom: 15px;
+    margin-left: 20px;
 }
 
 
+@media (max-width: 768px) {
+    .sidebar {
+        width: 60px;
+    }
 
-.sticky-header h4 {
-    font-size: 1.25rem;
+    .sidebar:hover {
+        width: 200px;
+    }
+
+    .main-content {
+        margin-left: 100px; 
+        width: calc(100% - 100px);
+    }
+
+    .sidebar:hover + .main-content {
+        margin-left: 200px;
+        width: calc(100% - 200px);
+    }
+}
+
+/* Stats */
+
+.statistics-section {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 15px;
+    height: 360px;
+    /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
+}
+
+.statistics-section h4{
     color: #176B87;
-    margin-bottom: 15px;
+    margin-bottom: 30px;
+}
+
+.stats-visuals {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.chart-container {
+    flex: 1;
+    max-width: 40%;
+    height: 280px;
+    background: #ffffff;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.chart-container canvas {
+    width: 100%;
+    height: auto;
+}
+
+.summary-table {
+    flex: 1;
+    max-width: 60%;
+    background: #ffffff;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.summary-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.summary-table th, .summary-table td {
+    padding: 10px;
+    text-align: left;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.summary-table thead th {
+    background: #176B87;
+    color: #fff;
+    font-weight: 600;
+}
+
+.summary-table tbody tr:nth-child(even) {
+    background: #f2f2f2;
+}
+
+.summary-table tbody tr:hover {
+    background: #e9f3f7;
 }

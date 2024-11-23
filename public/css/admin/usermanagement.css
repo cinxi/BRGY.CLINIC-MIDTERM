@@ -230,6 +230,7 @@ table{
 .table-responsive {
     overflow-x: auto;
     width: 100%;
+    height: 75%;
 }
 
 .reports-table {
@@ -239,7 +240,6 @@ table{
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  
 }
 
 .reports-table thead th {
@@ -270,13 +270,32 @@ table{
 /* Responsive adjustments */
 @media (max-width: 430px) {
     .main-content {
-        margin-left: 0;
+        margin-left: 20px;
     }
-
 
     .main-content h2, .main-content h4 {
         font-size: 1.25rem;
     }
+
+    .sidebar {
+        width: 60px;
+    }
+
+    .sidebar:hover {
+        width: 200px;
+    }
+
+    .main-content {
+        margin-left: 100px; 
+        width: calc(100% - 100px);
+    }
+
+    .sidebar:hover + .main-content {
+        margin-left: 200px;
+        width: calc(100% - 200px);
+    }
+
+
 }
 
 
@@ -305,7 +324,10 @@ table{
     max-width: 400px;
     border-radius: 8px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
 
+.modal-content h3{
+    color: #176B87;
 }
 
 .close {
@@ -365,12 +387,12 @@ form button {
 }
 
 form button:hover {
-    background-color: #0056b3;
+    background-color: #176B87;
 }
 
 /* Button styling */
 .btn-success {
-    background-color: #135f59;
+    background-color: #115369;
     color: white;
     padding: 10px 20px;
     border: none;
