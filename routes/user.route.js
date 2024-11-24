@@ -37,6 +37,7 @@ const router = express.Router()
 router.get("/login", userController.login_view   ) 
 router.get("/register", userController.register_view )
 
+
 router.get("/addUser", userController.addUser_view )
 
 router.get("/addPatient", addPatientController.patients_view )

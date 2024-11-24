@@ -43,6 +43,8 @@
     <main class="main-content">
         <div class="sticky-header">
             <h4>User Management</h4>
+
+            
         </div>
        
 
@@ -111,14 +113,24 @@
                     </div>
                     
 
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label for="role">Role:</label>
                         <input name="role" type="text" class="form-control" id="role" value="clinic staff" readonly>
+                    </div> -->
+
+                    <div class="form-group">
+                        <label for="status">Status:</label>
+                        <input name="status" type="text" class="form-control" id="status" value="Active" readonly>
                     </div>
+
                     <div class="form-group">
                         <label for="Username">Username:</label>
                         <input name="Username_data" type="text" class="form-control" id="Username" required>
+
+                        
                     </div>
+                    
+
                     <div class="form-group">
                         <label for="Password">Password:</label>
                         <input name="Password_data" type="password" class="form-control" id="Password" required>
@@ -142,80 +154,73 @@
                         <th>Contact Number</th>
                         <th>Username</th>
                         <th>Status</th>
-                        <th>Actions</th>
+                        <th>Action</th>
                   
                     </tr>
                 </thead>
                 
-                <tbody id="userTableBody"> 
-                    <% users.forEach(user => { %>
-                        <tr>
-                            <td><%= user.Users_ID %></td>
-                            <td><%= user.LastName %></td>
-                            <td><%= user.FirstName %></td>
-                      
-                            <td><%= new Date(user.Users_Birthdate).toLocaleDateString("en-US", { 
-                                month: "2-digit", 
-                                day: "2-digit", 
-                                year: "numeric" 
-                            }) %></td>
-                            <td><%= user.Users_Gender %></td>
-                            <td><%= user.ContactNumber %></td>
-                        
-                            <td><%= user.Username %></td>
+              <tbody id="userTableBody"> 
+    <% users.forEach(user => { %>
+        <tr>
+            <td><%= user.Users_ID %></td>
+            <td><%= user.LastName %></td>
+            <td><%= user.FirstName %></td>
+            <td><%= new Date(user.Users_Birthdate).toLocaleDateString("en-US", { 
+                month: "2-digit", 
+                day: "2-digit", 
+                year: "numeric" 
+            }) %></td>
+            <td><%= user.Users_Gender %></td>
+            <td><%= user.ContactNumber %></td>
+            <td><%= user.Username %></td>
+            <td><%= user.Users_Status %></td>
+            <td>
+                <a href="/admin/editUser/<%= user.Users_ID %>" class="btn btn-edit">Edit User</a>
+                <!-- <a href="/admin/deleteUser/" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this user?')">Delete</a> -->
+            </td>
+        </tr>
+    <% }) %>
+</tbody>
 
-                            <td> Active </td>
-
-                            <td>
-                                <a href="/admin/editUser/<%= user.Users_ID %>" class="btn btn-edit">Edit</a>
-                                <a href="/admin/deleteUser/<%= user.Users_ID %>" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this user?')">Delete</a>
-                            </td>
-                        
-       
-                   
-
-                        </tr>
-                    <% }) %>
-                </tbody>
             </table>
         </div>
    </main>
 
 
-   <!-- Edit User Modal -->
+<!-- Edit User Modal -->
+
 <div id="editUserModal" class="modal">
     <div class="modal-content">
         <span id="closeEditModal" class="close">&times;</span>
         <h3>Edit User Details</h3>
 
         <form id="editUserForm" action="" method="post">
-        
             <div class="form-group">
                 <label for="editLastName">Lastname:</label>
                 <input name="lastName_data" type="text" class="form-control" id="editLastName" required>
             </div>
-
+        
             <div class="form-group">
                 <label for="editFirstName">Firstname:</label>
                 <input name="firstName_data" type="text" class="form-control" id="editFirstName" required>
             </div>
-
+        
             <div class="form-group">
                 <label for="editContactNumber">Contact Number:</label>
-                <input type="tel" 
-                       class="form-control" 
-                       id="editContactNumber" 
-                       name="contactNumber_data" 
-                       pattern="[0-9]{11}" 
-                       maxlength="11" 
-                       minlength="11" 
-                       required 
-                       title="Contact number must be exactly 11 digits (e.g., 09123456789)">
-
+                <input type="tel" class="form-control" id="editContactNumber" name="contactNumber_data" required>
             </div>
-
+        
+            <div class="form-group">
+                <label for="status">User Status:</label>
+                <select name="status" id="edit_status" required>
+                    <option value="Active">Active</option>
+                    <option value="Inactive">Inactive</option>
+                </select>
+            </div>
+        
             <button type="submit" class="btn btn-success">Save Changes</button>
         </form>
+        
     </div>
 </div>
 
@@ -225,28 +230,32 @@
     const editUserModal = document.getElementById("editUserModal");
     const closeEditModal = document.getElementById("closeEditModal");
     const editUserForm = document.getElementById("editUserForm");
-
     editButtons.forEach((button) => {
-        button.addEventListener("click", function (event) {
-            event.preventDefault();
-            const userRow = this.closest("tr");
-            const userId = userRow.querySelector("td").textContent;
+    button.addEventListener("click", function (event) {
+        event.preventDefault();
+        const userRow = this.closest("tr");
+        const userId = userRow.querySelector("td").textContent;
 
-            const lastName = userRow.children[1].textContent;
-            const firstName = userRow.children[2].textContent;
-            const contactNumber = userRow.children[5].textContent;
+        const lastName = userRow.children[1].textContent;
+        const firstName = userRow.children[2].textContent;
+        const contactNumber = userRow.children[5].textContent;
+        const currentStatus = userRow.children[7].textContent; // Assuming status is in the 8th column (index 7)
 
-            // Populate modal fields
-            editUserForm.action = `/admin/editUser/${userId}`;
+        // Populate modal fields
+        editUserForm.action = `/admin/editUser/${userId}`;
 
-            document.getElementById("editLastName").value = lastName;
-            document.getElementById("editFirstName").value = firstName;
-            document.getElementById("editContactNumber").value = contactNumber;
+        document.getElementById("editLastName").value = lastName;
+        document.getElementById("editFirstName").value = firstName;
+        document.getElementById("editContactNumber").value = contactNumber;
 
-            // Show modal
-            editUserModal.style.display = "block";
-        });
+        // Set the status dropdown based on the current status
+        document.getElementById("edit_status").value = currentStatus;
+
+        // Show modal
+        editUserModal.style.display = "block";
     });
+});
+
 
     closeEditModal.onclick = () => (editUserModal.style.display = "none");
     window.onclick = (event) => {

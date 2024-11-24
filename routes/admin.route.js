@@ -64,8 +64,8 @@ router.get("/staff/getTotalPatients", addPatientController.getTotalPatients);
 router.get("/admin/editUser/:id", admin_Controller.editUser);
 router.post("/admin/editUser/:id", admin_Controller.updateUser);
 
-// Delete user
-router.get("/admin/deleteUser/:id", admin_Controller.deleteUser);
+// // Delete user
+// router.get("/admin/deleteUser/:id", admin_Controller.deleteUser);
 
 // Update User route
 router.post("/admin/editUser/:id", admin_Controller.updateUser);

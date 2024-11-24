@@ -6,15 +6,10 @@ const models = require("../models");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
-const user = require('../models/user'); 
 
-// Fetch users with 'clinic staff' role only
+// Fetch clinic staff users from the ClinicStaff model
 const usermanagement_view = (req, res) => {
-    models.user.findAll({
-        where: {
-            User_Role: 'clinic staff' // Filter by clinic staff role
-        }
-    })
+    models.ClinicStaff.findAll()
     .then(users => {
         res.render("admin/usermanagement", { users }); // Pass user data to the view
     })
@@ -27,18 +22,14 @@ const usermanagement_view = (req, res) => {
 
 // Fetch total clinic staff users
 const getTotalClinicStaff = (req, res) => {
-    models.user.count({
-        where: {
-            User_Role: 'clinic staff'
-        }
-    })
-    .then(totalStaff => {
-        res.json({ totalStaff });
-    })
-    .catch(error => {
-        console.error('Error fetching total clinic staff:', error);
-        res.status(500).json({ error: 'Unable to fetch data' });
-    });
+    models.ClinicStaff.count()  // Count all clinic staff records in the ClinicStaff table
+        .then(totalStaff => {
+            res.json({ totalStaff });
+        })
+        .catch(error => {
+            console.error('Error fetching total clinic staff:', error);
+            res.status(500).json({ error: 'Unable to fetch data' });
+        });
 };
 
 // Other controller 
@@ -75,34 +66,37 @@ const addUser = (req, res) => {
         Users_Birthdate: req.body.birthdate_data,
         Users_Gender: req.body.gender_data,
         ContactNumber: req.body.contactNumber_data,
-        User_Role: req.body.role,
+        Users_Status: req.body.status,
         Username: req.body.Username_data,
         Password: req.body.Password_data,
     };
 
+    // Hash the password before saving
     data_addUser.Password = bcrypt.hashSync(data_addUser.Password, 10);
     console.log("Hashed password:", data_addUser.Password);
 
-    models.user.create(data_addUser)
+    // Insert data into the ClinicStaff table
+    models.ClinicStaff.create(data_addUser)
         .then(result => {
             console.log("New user added successfully:", result);
             res.redirect("/admin/usermanagement?message=UserAdded");
         })
         .catch(error => {
             console.error("Error adding new user:", error);
-            res.redirect("/admin/usermanagement?message=ServerError");
+            res.redirect("/admin/usermanagement?message=UsernameAlreadyExist!");
         });
 };
+
 
 // Edit User
 const editUser = (req, res) => {
     const userId = req.params.id;
-    models.user.findOne({
+    models.ClinicStaff.findOne({
         where: { Users_ID: userId }
     })
     .then(user => {
         if (user) {
-            res.render("admin/editUser", { user });
+            res.render("admin/editUser", { user });  // Pass the user object to the view
         } else {
             res.redirect("/admin/usermanagement?message=UserNotFound");
         }
@@ -113,7 +107,7 @@ const editUser = (req, res) => {
     });
 };
 
-// Update User Data
+
 // Update User Data
 const updateUser = (req, res) => {
     const userId = req.params.id;
@@ -121,9 +115,10 @@ const updateUser = (req, res) => {
         FirstName: req.body.firstName_data,
         LastName: req.body.lastName_data,
         ContactNumber: req.body.contactNumber_data,
+        Users_Status: req.body.status,
     };
 
-    models.user.update(updatedData, {
+    models.ClinicStaff.update(updatedData, {
         where: { Users_ID: userId }
     })
     .then(() => {
@@ -135,20 +130,20 @@ const updateUser = (req, res) => {
     });
 };
 
-// Delete User
-const deleteUser = (req, res) => {
-    const userId = req.params.id;
-    models.user.destroy({
-        where: { Users_ID: userId }
-    })
-    .then(() => {
-        res.redirect("/admin/usermanagement?message=UserDeleted");
-    })
-    .catch(error => {
-        console.error("Error deleting user:", error);
-        res.redirect("/admin/usermanagement?message=ServerError");
-    });
-};
+// // Delete User
+// const deleteUser = (req, res) => {
+//     const userId = req.params.id;
+//     models.user.destroy({
+//         where: { Users_ID: userId }
+//     })
+//     .then(() => {
+//         res.redirect("/admin/usermanagement?message=UserDeleted");
+//     })
+//     .catch(error => {
+//         console.error("Error deleting user:", error);
+//         res.redirect("/admin/usermanagement?message=ServerError");
+//     });
+// };
 
 
 module.exports = {
@@ -163,6 +158,6 @@ module.exports = {
     getTotalClinicStaff,
     editUser,
     updateUser,
-    deleteUser,
+    // deleteUser,
     
 };

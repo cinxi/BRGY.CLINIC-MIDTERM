@@ -78,14 +78,15 @@
         <script>
             // fetch total clinic staff
             fetch('/admin/getTotalClinicStaff')
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('totalStaffUsers').innerText = data.totalStaff;
-                })
-                .catch(error => {
-                    console.error('Error fetching total clinic staff users:', error);
-                    document.getElementById('totalStaffUsers').innerText = 'Error loading data';
-                });       
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById('totalStaffUsers').innerText = data.totalStaff;
+    })
+    .catch(error => {
+        console.error('Error fetching total clinic staff users:', error);
+        document.getElementById('totalStaffUsers').innerText = 'Error loading data';
+    });
+   
         </script>
 
 
