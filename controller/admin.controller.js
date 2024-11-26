@@ -7,30 +7,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
 
-// Fetch clinic staff users from the ClinicStaff model
-const usermanagement_view = (req, res) => {
-    models.ClinicStaff.findAll()
-    .then(users => {
-        res.render("admin/usermanagement", { users }); // Pass user data to the view
-    })
-    .catch(error => {
-        console.error("Error fetching clinic staff users:", error);
-        res.render("admin/usermanagement", { users: [] }); // Render with an empty array if there's an error
-    });
-};
 
-
-// Fetch total clinic staff users
-const getTotalClinicStaff = (req, res) => {
-    models.ClinicStaff.count()  // Count all clinic staff records in the ClinicStaff table
-        .then(totalStaff => {
-            res.json({ totalStaff });
-        })
-        .catch(error => {
-            console.error('Error fetching total clinic staff:', error);
-            res.status(500).json({ error: 'Unable to fetch data' });
-        });
-};
 
 // Other controller 
 const Admindashboard_view = (req, res) => {
@@ -57,6 +34,36 @@ const logout = (req, res) => {
     res.cookie("token", "", { maxAge: 1000 });
     res.render("login");
 };
+
+
+
+// Fetch clinic staff users from the ClinicStaff model
+const usermanagement_view = (req, res) => {
+    models.ClinicStaff.findAll()
+    .then(users => {
+        res.render("admin/usermanagement", { users }); // Pass user data to the view
+    })
+    .catch(error => {
+        console.error("Error fetching clinic staff users:", error);
+        res.render("admin/usermanagement", { users: [] }); // Render with an empty array if there's an error
+    });
+};
+
+
+// Fetch total clinic staff users
+const getTotalClinicStaff = (req, res) => {
+    models.ClinicStaff.count()  // Count all clinic staff records in the ClinicStaff table
+        .then(totalStaff => {
+            res.json({ totalStaff });
+        })
+        .catch(error => {
+            console.error('Error fetching total clinic staff:', error);
+            res.status(500).json({ error: 'Unable to fetch data' });
+        });
+};
+
+
+
 
 // Add new user function
 const addUser = (req, res) => {

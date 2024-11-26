@@ -99,10 +99,58 @@ const login_user = (req, res) => {
         });
 };
 
+
+
+// LOGIN SA CLINIC STAFF
+
+
+const login_staff_view = (req, res) => {
+    const message = req.query.message || null; // Optional message for errors or notifications
+    res.render("staff/login", { message });
+};
+
+const login_staff = (req, res) => {
+    const { Username, Password } = req.body;
+
+    // Check if staff exists in the database
+    models.ClinicStaff.findOne({ where: { Username } })
+        .then(staff => {
+            if (!staff) {
+                return res.render("staff/login", { message: "User not found" });
+            }
+
+            // Compare password with hashed password
+            const passwordMatch = bcrypt.compareSync(Password, staff.Password);
+
+            if (!passwordMatch) {
+                return res.render("staff/login", { message: "Incorrect password" });
+            }
+
+            // Successful login
+            const token = jwt.sign(
+                { id: staff.Users_ID, Username: staff.Username },
+                "secretKey",
+                { expiresIn: "1h" }
+            );
+
+            res.cookie("token", token); // Set JWT as a cookie
+            res.redirect("/staff/Staffdashboard"); // Redirect to staff dashboard
+        })
+        .catch(error => {
+            console.error("Error during login:", error);
+            res.render("staff/login", { message: "Server error" });
+        });
+};
+
+
+
 module.exports = {
     login_view,
     register_view,
     save_user,
     login_user,
     addUser_view,
+    login_staff,
+    login_staff_view
+
 };

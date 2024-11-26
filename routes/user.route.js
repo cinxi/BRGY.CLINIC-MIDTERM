@@ -82,6 +82,12 @@ router.post("/staff/editAppointment/:id", appointmentController.save_editAppoint
 router.get("/staff/deleteAppointment/:id", appointmentController.deleteAppointment);
 
 
+// GET route to display staff login page
+router.get("/staff/login", userController.login_staff_view);
+
+// POST route to handle staff login
+router.post("/staff/login-staff", userController.login_staff);
+
 
 
 module.exports = router

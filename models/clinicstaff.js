@@ -1,5 +1,6 @@
 
-
+// models
+//(clinic staff)
 
 
 module.exports = (sequelize, DataTypes) => {
