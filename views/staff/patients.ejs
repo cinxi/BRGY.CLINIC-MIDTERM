@@ -1,4 +1,3 @@
-
 <!-- patient.ejs -->
 
 <!DOCTYPE html>
@@ -33,245 +32,128 @@
             <h3>Brgy. Clinic Appointment</h3>
         </div>
         <ul class="sidebar-links">
-         
             <li><a href="Staffdashboard"><span class="material-icons">dashboard</span>Dashboard</a></li>
             <li><a href="appointment"><span class="material-icons">today</span> Appointments</a></li>
             <li><a href="patients"><span class="material-icons">groups</span>Patients Record</a></li>
             <li><a href="/login"><span class="material-icons">logout</span>Logout</a></li> 
         </ul>
-      
     </aside>
   
-    
     <main class="main-content p-4 w-100">
         <div class="sticky-header">
             <h4>Patients Record</h4>       
         </div>
-      
 
+        <!-- Add Search Field -->
         <div class="add-search">
-        <!-- Add New Patient Button -->
-        <button id="addPatientBtn" class="btn btn-add">
-            <span class="material-icons">add</span> Register New Patient
-        </button>
-
-            
-    <!-- Add Search Field -->
-    <div class="search-container">
-        <span class="material-icons search-icon">search</span>
-        <input type="text" id="searchInput" placeholder="Search">
-    </div>
-        </div>
-  
-        <!-- Patient Form Modal -->
-        <div id="patientModal" class="modal">
-            <div class="modal-content">
-                <span id="closeModal" class="close">&times;</span>
-                <h3> Patient Registration Form</h3>
-                <form action="/staff/addPatient" method="POST"> 
-                   
-        
-                    <label for="lastName">Lastname:</label>
-                    <input type="text" id="lastName" name="Patient_LastName" required>
-
-                    <label for="firstName">Firstname:</label>
-                    <input type="text" id="firstName" name="Patient_FirstName" required>
-
-                    <label for="gender">Gender:</label>
-                    <select id="gender" name="Patient_Gender" required >
-                        <option value="">Select Gender</option>
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                    </select>
-
-                    <label for="dob">Date of Birth:</label>
-                    <input type="date" id="dob" name="DateofBirth" required>
-
-                    <div class="form-group">
-                        <label for="contactNumber">Contact Number:</label>
-                        <input type="tel" 
-                               class="form-control" 
-                               id="contactNumber" 
-                               name="Patient_ContactNumber" 
-                               pattern="[0-9]{11}" 
-                               maxlength="11" 
-                               minlength="11" 
-                               required 
-                               title="Contact number must be exactly 11 digits (e.g., 09123456789)">
-                       
-                    </div>
-
-                    <label for="address">Address:</label>
-                    <select id="address" name="Patient_Address" required>
-                        <option value="">Select Purok</option>
-                        <option value="Purok-1">Purok-1</option>
-                        <option value="Purok-2">Purok-2</option>
-                        <option value="Purok-3">Purok-3</option>
-                        <option value="Purok-4">Purok-4</option>
-                        <option value="Purok-5">Purok-5</option>
-                        <option value="Purok-6">Purok-6</option>
-                        <option value="Purok-7">Purok-7</option>
-                        <option value="Purok-8">Purok-8</option>
-                        <option value="Purok-9">Purok-9</option>
-                        <option value="Purok-10">Purok-10</option>
-                        <option value="Purok-11">Purok-11</option>
-                    </select>
-                    
-                    <button type="submit" class="btn btn-success"> Save </button>
-                </form>
-         
+            <div class="search-container">
+                <span class="material-icons search-icon">search</span>
+                <input type="text" id="searchInput" placeholder="Search">
             </div>
         </div>
 
- 
-
-<!-- Patient Records Table -->
-<div class="patient-table">
-    <div class="table-responsive">
-        <table class="reports-table">
-            <thead>
-                <tr>
-                    <th>Patient ID</th>       
-                    <th>Lastname</th>
-                    <th>Firstname</th>
-                    <th>Gender</th>
-                    <th>Date of Birth</th>
-                    <th>Contact Number</th>
-                    <th>Address</th>
-                    <th>Action</th>
+        <!-- Patient Records Table -->
+        <div class="patient-table">
+            <div class="table-responsive">
+                <table class="reports-table">
+                    <thead>
+                        <tr>
+                            <th>Patient ID</th>
+                            <th>Lastname</th>
+                            <th>Firstname</th>
+                            <th>Gender</th>
+                            <th>Date of Birth</th>
+                            <th>Contact Number</th>
+                            <th>Address</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="patientTableBody">
+                        <% patients.forEach(patient => { %>
+                            <tr>
+                                <td><%= patient.Patient_ID %></td>
+                                <td><%= patient.Patient_LastName %></td>
+                                <td><%= patient.Patient_FirstName %></td>
+                                <td><%= patient.Patient_Gender %></td>
+                                <td><%= new Date(patient.DateofBirth).toLocaleDateString("en-US", { 
+                                        month: "2-digit", 
+                                        day: "2-digit", 
+                                        year: "numeric" 
+                                    }) %>
+                                </td>
+                                <td><%= patient.Patient_ContactNumber %></td>
+                                <td><%= patient.Patient_Address %></td>
+                                <td><%= patient.Patient_Status %></td>
+                                <td>
+                                    <td>
+                                        <button class="btn btn-edit" onclick="openEditStatusModal('<%= patient.Patient_ID %>', '<%= patient.Patient_Status %>')">
+                                            Edit Status
+                                        </button>
+                                    </td>
+                                    
+                                </td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
                     
-                </tr>
-            </thead>
-            <tbody id="patientTableBody">
-                <% patients.forEach(patient => { %>
-                    <tr>
-                        <td><%= patient.Patient_ID %></td>
-                      
-                        <td><%= patient.Patient_LastName %></td>
-                          <td><%= patient.Patient_FirstName %></td>
-                        <td><%= patient.Patient_Gender %></td>
-                        
-                         <td><%= new Date(patient.DateofBirth).toLocaleDateString("en-US", { 
-                        month: "2-digit", 
-                        day: "2-digit", 
-                        year: "numeric" 
-                    }) %>
-                    
-                </td>
-                        <td><%= patient.Patient_ContactNumber %></td>
-                        <td><%= patient.Patient_Address %></td>
-
-                        <td>
-                            <!-- Edit Button to open modal with patient details -->
-                            <button class="btn btn-edit" 
-                            onclick="openEditModal('<%= patient.Patient_ID %>', '<%= patient.Patient_LastName %>', '<%= patient.Patient_FirstName %>', '<%= patient.Patient_ContactNumber %>')">Edit</button>
-                        
-                            <a href="/staff/deletePatient/<%= patient.Patient_ID %>" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this patient?')">Delete</a>
-                        </td>
-                        
-                       
-                    </tr>
-                <% }) %>
-            </tbody>
-        </table>
-    </div>
-</div>
-
+                </table>
+            </div>
         </div>
 
-      <!-- Edit Patient Modal -->
-<div id="editPatientModal" class="modal">
-    <div class="modal-content">
-        <span id="closeEditModal" class="close">&times;</span>
-        <h3>Edit Patient Details</h3>
-        <form id="editPatientForm" action="/staff/updatePatient" method="POST">
-            <input type="hidden" id="patientId" name="Patient_ID">
-
-            <label for="editLastName">Lastname:</label>
-            <input type="text" id="editLastName" name="Patient_LastName" required>
-
-            <label for="editFirstName">Firstname:</label>
-            <input type="text" id="editFirstName" name="Patient_FirstName" required>
-
-            <label for="editContactNumber">Contact Number:</label>
-            <input type="tel" class="form-control" id="editContactNumber" name="Patient_ContactNumber" pattern="[0-9]{11}" maxlength="11" minlength="11" required title="Contact number must be exactly 11 digits (e.g., 09123456789)">
-
-            <button type="submit" class="btn btn-success">Save Changes</button>
-        </form>
-    </div>
-</div>
-
-
+        <!-- Edit Patient Modal -->
+        <div id="editStatusModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeEditStatusModal()">&times;</span>
+                <h2>Edit Patient Status</h2>
+                <form id="editStatusForm" method="POST" action="/staff/updatePatientStatus">
+                    <input type="hidden" id="patientId" name="Patient_ID">
+                    <label for="editStatus">Status:</label>
+                    <select id="editStatus" name="Patient_Status" required>
+                        <option value="Active">Active</option>
+                        <option value="Inactive">Inactive</option>
+                    </select>
+                    <button type="submit">Save Changes</button>
+                </form>
+            </div>
+        </div>
+        
     </main>
 
-
-
     <script>
+        // JavaScript for editing and searching functionality remains unchanged
 
-        // JavaScript to handle modal display
-        document.getElementById("addPatientBtn").onclick = function() {
-            document.getElementById("patientModal").style.display = "block";
-        };
-    
-        document.getElementById("closeModal").onclick = function() {
-            document.getElementById("patientModal").style.display = "none";
-        };
-    
+        function openEditStatusModal(patientId, currentStatus) {
+        document.getElementById("patientId").value = patientId;
+        document.getElementById("editStatus").value = currentStatus;
+        document.getElementById("editStatusModal").style.display = "block";
+}
+
+     function closeEditStatusModal() {
+    document.getElementById("editStatusModal").style.display = "none";
+}
+
+
+        // Close modal if clicked outside of it
         window.onclick = function(event) {
-            if (event.target == document.getElementById("patientModal")) {
-                document.getElementById("patientModal").style.display = "none";
+            if (event.target == document.getElementById("editPatientModal")) {
+                document.getElementById("editPatientModal").style.display = "none";
             }
         };
 
-        function openEditModal(patientId, contactNumber) {
-    document.getElementById("patientId").value = patientId;
-    document.getElementById("editContactNumber").value = contactNumber;
-
-    document.getElementById("editPatientModal").style.display = "block";
-}
-
-// Close Edit Modal
-document.getElementById("closeEditModal").onclick = function() {
-    document.getElementById("editPatientModal").style.display = "none";
-};
-
-// Close modal if clicked outside of it
-window.onclick = function(event) {
-    if (event.target == document.getElementById("editPatientModal")) {
-        document.getElementById("editPatientModal").style.display = "none";
-    }
-};
-
-//edit
-        
-function openEditModal(patientId, lastName, firstName, contactNumber) {
-    document.getElementById("patientId").value = patientId;
-    document.getElementById("editLastName").value = lastName;
-    document.getElementById("editFirstName").value = firstName;
-    document.getElementById("editContactNumber").value = contactNumber;
-
-    document.getElementById("editPatientModal").style.display = "block";
-}
-
-     
-        //inig search
-
         document.getElementById("searchInput").addEventListener("keyup", function () {
-    const filter = this.value.toLowerCase();
-    const rows = document.querySelectorAll("#patientTableBody tr");
+            const filter = this.value.toLowerCase();
+            const rows = document.querySelectorAll("#patientTableBody tr");
 
-    rows.forEach((row) => {
-        const cells = row.querySelectorAll("td");
-        const match = Array.from(cells).some((cell) =>
-            cell.textContent.toLowerCase().includes(filter)
-        );
-        row.style.display = match ? "" : "none";
-    });
-});
-
+            rows.forEach((row) => {
+                const cells = row.querySelectorAll("td");
+                const match = Array.from(cells).some((cell) =>
+                    cell.textContent.toLowerCase().includes(filter)
+                );
+                row.style.display = match ? "" : "none";
+            });
+        });
     </script>
-
-
 
 </body>
 </html>

@@ -103,7 +103,6 @@ const login_user = (req, res) => {
 
 // LOGIN SA CLINIC STAFF
 
-
 const login_staff_view = (req, res) => {
     const message = req.query.message || null; // Optional message for errors or notifications
     res.render("staff/login", { message });
@@ -141,6 +140,10 @@ const login_staff = (req, res) => {
             res.render("staff/login", { message: "Server error" });
         });
 };
+
+
+
+//  SA PATIENT
 
 
 

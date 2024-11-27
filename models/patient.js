@@ -1,35 +1,48 @@
-// models/patient.js
-
 'use strict';
-const { Model } = require('sequelize');
-
 module.exports = (sequelize, DataTypes) => {
-  class Patient extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      // define association here if needed
-    }
-  }
-
-  Patient.init({
+  const Patient = sequelize.define('Patient', {
     Patient_ID: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      autoIncrement: true
+      autoIncrement: true,
     },
-    Patient_FirstName: DataTypes.STRING,
-    Patient_LastName: DataTypes.STRING,
-    Patient_Gender: DataTypes.STRING,
-    DateofBirth: DataTypes.DATE,
-    Patient_ContactNumber: DataTypes.STRING,
-    Patient_Address: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'Patient',
+    Patient_FirstName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    Patient_LastName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    Patient_Gender: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    DateofBirth: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    Patient_ContactNumber: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    Patient_Address: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    Patient_Status: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    Username: {
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: false,
+    },
+    Password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   });
 
   return Patient;

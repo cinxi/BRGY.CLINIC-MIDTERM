@@ -98,25 +98,21 @@ const editPatient = (req, res) => {
 
 
 // Update Patient
-const updatePatient = (req, res) => {
-    const patientId = req.body.Patient_ID;
-    const updatedData = {
-        Patient_LastName: req.body.Patient_LastName,
-        Patient_FirstName: req.body.Patient_FirstName,
-        Patient_ContactNumber: req.body.Patient_ContactNumber,
-    };
+const updatePatientStatus = (req, res) => {
+    const { Patient_ID, Patient_Status } = req.body;
 
-    models.Patient.update(updatedData, {
-        where: { Patient_ID: patientId },
+    models.Patient.update({ Patient_Status }, {
+        where: { Patient_ID },
     })
     .then(() => {
         res.redirect("/staff/patients");
     })
-    .catch((error) => {
-        console.error("Error updating patient:", error);
+    .catch(error => {
+        console.error("Error updating patient status:", error);
         res.redirect("/staff/patients?message=UpdateError");
     });
 };
+
 
 
 //  (Delete) Patient
@@ -149,7 +145,7 @@ module.exports = {
     save_addPatient,
     getTotalPatients ,
     editPatient,
-    updatePatient,
+    updatePatientStatus,
     deletePatient
     
 };

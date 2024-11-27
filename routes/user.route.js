@@ -63,10 +63,12 @@ router.get("/staff/patient", addPatientController.patients_view);
 router.get("/staff/deletePatient/:id", addPatientController.deletePatient);
 
 
-//update patient
+// //update patient
 
-router.post("/staff/updatePatient", addPatientController.updatePatient);
+// router.post("/staff/updatePatient", addPatientController.updatePatient);
 
+// Update patient status
+router.post("/staff/updatePatientStatus", addPatientController.updatePatientStatus);
 
 
 
@@ -80,6 +82,8 @@ router.post("/staff/editAppointment/:id", appointmentController.save_editAppoint
 
 // Route to delete an appointment (GET)
 router.get("/staff/deleteAppointment/:id", appointmentController.deleteAppointment);
+
+
 
 
 // GET route to display staff login page
